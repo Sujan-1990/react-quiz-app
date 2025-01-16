@@ -10,6 +10,7 @@ export default function Quiz({
 	pointsEarned,
 	currentQuestion,
 	setCurrentIndex,
+	setPointsEarned,
 }: {
 	currentIndex: number;
 	totalQuestions: number;
@@ -17,6 +18,7 @@ export default function Quiz({
 	pointsEarned: number;
 	currentQuestion: IQuestion;
 	setCurrentIndex: React.Dispatch<React.SetStateAction<number>>;
+	setPointsEarned: React.Dispatch<React.SetStateAction<number>>;
 }) {
 	return (
 		<Stack>
@@ -29,6 +31,8 @@ export default function Quiz({
 			<Question
 				currentQuestion={currentQuestion}
 				setCurrentIndex={setCurrentIndex}
+				setPointsEarned={setPointsEarned}
+				// pointsEarned={pointsEarned}
 			/>
 		</Stack>
 	);

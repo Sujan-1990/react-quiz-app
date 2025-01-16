@@ -36,6 +36,7 @@ function App() {
 					totalQuestions={totalQuestions}
 					totalPoints={totalPoints}
 					pointsEarned={pointsEarned}
+					setPointsEarned={setPointsEarned}
 					currentQuestion={currentQuestion!}
 				/>
 			)}
