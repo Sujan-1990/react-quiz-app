@@ -1,0 +1,35 @@
+import { Stack } from "@mui/material";
+import { IQuestion } from "../interface/question";
+import QuizProgress from "./QuizProgress";
+import Question from "./Question";
+
+export default function Quiz({
+	currentIndex,
+	totalQuestions,
+	totalPoints,
+	pointsEarned,
+	currentQuestion,
+	setCurrentIndex,
+}: {
+	currentIndex: number;
+	totalQuestions: number;
+	totalPoints: number;
+	pointsEarned: number;
+	currentQuestion: IQuestion;
+	setCurrentIndex: React.Dispatch<React.SetStateAction<number>>;
+}) {
+	return (
+		<Stack>
+			<QuizProgress
+				currentIndex={currentIndex}
+				totalQuestions={totalQuestions}
+				totalPoints={totalPoints}
+				pointsEarned={pointsEarned}
+			/>
+			<Question
+				currentQuestion={currentQuestion}
+				setCurrentIndex={setCurrentIndex}
+			/>
+		</Stack>
+	);
+}
