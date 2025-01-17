@@ -1,5 +1,4 @@
-import { Button, Typography } from "@mui/material";
-import { IQuestion } from "../interface/question";
+import { Button, Stack, Typography } from "@mui/material";
 
 export default function Welcome({
 	totalQuestions,
@@ -9,7 +8,7 @@ export default function Welcome({
 	setStartQuiz: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
 	return (
-		<>
+		<Stack spacing={5}>
 			<Typography variant="h3">Welcome</Typography>
 			<Typography variant="h5">
 				{totalQuestions} questions to test your React Mastery
@@ -17,6 +16,6 @@ export default function Welcome({
 			<Button variant="outlined" fullWidth onClick={() => setStartQuiz(true)}>
 				Start
 			</Button>
-		</>
+		</Stack>
 	);
 }

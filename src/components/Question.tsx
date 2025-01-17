@@ -6,79 +6,81 @@ export default function Question({
 	currentQuestion,
 	setCurrentIndex,
 	setPointsEarned,
+	totalQuestions,
+	currentIndex,
 }: {
 	currentQuestion: IQuestion;
 	setCurrentIndex: React.Dispatch<React.SetStateAction<number>>;
 	setPointsEarned: React.Dispatch<React.SetStateAction<number>>;
+	totalQuestions: number;
+	currentIndex: number;
 }) {
+	const [restart, setRestart] = useState(false);
 	const [hasAnswered, setHasAnswered] = useState(false);
+	const [selectedOption, setSelectedOption] = useState<number | null>();
 
 	function handleAnswer(i: number) {
 		setHasAnswered(true);
-		const correctAnswer = i === currentQuestion.correctOption;
-		console.log(correctAnswer ? "correctanswer" : "wrong answer");
-		correctAnswer &&
+		setSelectedOption(i);
+		const isCorrectAnswer = i === currentQuestion.correctOption;
+		isCorrectAnswer &&
 			setPointsEarned((pointsEarned) => pointsEarned + currentQuestion.points);
+
+		console.log("currentIndex=" + currentIndex);
+		console.log("totalQuestions=" + totalQuestions);
+
+		if (currentIndex + 1 == totalQuestions) {
+			setRestart(true);
+		}
 	}
 
 	function handleNextQuestion() {
 		setCurrentIndex((x) => x + 1);
 		setHasAnswered(false);
+		setSelectedOption(null);
+	}
+
+	function handleRestartQuiz() {
+		console.log("restart");
 	}
 
 	return (
 		<Stack spacing={4}>
 			<Typography>{currentQuestion.question}</Typography>
-
 			<Stack spacing={1}>
-				{currentQuestion.options.map((option: string, i: number) =>
-					!hasAnswered ? (
-						<Box
-							key={i}
-							sx={{
-								cursor: "pointer",
-								border: "1px solid skyblue",
-								borderRadius: 1,
-							}}
-							onClick={() => handleAnswer(i)}
-						>
-							{option}
-						</Box>
-					) : (
-						<Box
-							key={i}
-							sx={{
-								border: "1px solid red",
-								borderRadius: 1,
-							}}
-						>
-							{option}
-						</Box>
-					)
-				)}
-			</Stack>
-
-			{/* <ol>
 				{currentQuestion.options.map((option: string, i: number) => (
-					<li
-						key={option}
-						style={{ cursor: "pointer" }}
-						onClick={() => handleAnswer(i)}
+					<Box
+						key={i}
+						sx={{
+							cursor: !hasAnswered ? "pointer" : "default",
+							border: "1px solid skyblue",
+							borderRadius: 1,
+							backgroundColor: hasAnswered
+								? `${currentQuestion.correctOption === i ? "green" : "red"}`
+								: "",
+							ml: i === selectedOption ? "100px !important" : "",
+						}}
+						onClick={() => (!hasAnswered ? handleAnswer(i) : null)}
 					>
 						{option}
-					</li>
+					</Box>
 				))}
-			</ol> */}
+			</Stack>
 
-			<Button
-				variant="outlined"
-				color="success"
-				// onClick={() => setCurrentIndex((x) => x + 1)}
-				onClick={handleNextQuestion}
-				disabled={!hasAnswered}
-			>
-				Next
-			</Button>
+			{!restart ? (
+				<Button
+					variant="outlined"
+					color="success"
+					onClick={handleNextQuestion}
+					disabled={!hasAnswered}
+				>
+					Next
+				</Button>
+			) : (
+				<Button variant="contained" color="warning" onClick={handleRestartQuiz}>
+					Restart
+				</Button>
+			)}
 		</Stack>
 	);
 }

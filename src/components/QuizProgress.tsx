@@ -13,7 +13,9 @@ export default function QuizProgress({
 }) {
 	return (
 		<Stack width={500}>
-			{/* <LinearProgress value={40} /> */}
+			{/* <LinearProgressBar progre/> */}
+			{/* <LinearProgress variant="buffer" value={currentIndex} /> */}
+
 			<Stack direction="row" justifyContent="space-between">
 				<Typography>
 					Question {currentIndex + 1}/{totalQuestions}

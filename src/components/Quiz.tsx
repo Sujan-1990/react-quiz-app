@@ -21,7 +21,7 @@ export default function Quiz({
 	setPointsEarned: React.Dispatch<React.SetStateAction<number>>;
 }) {
 	return (
-		<Stack>
+		<Stack spacing={5}>
 			<QuizProgress
 				currentIndex={currentIndex}
 				totalQuestions={totalQuestions}
@@ -32,7 +32,8 @@ export default function Quiz({
 				currentQuestion={currentQuestion}
 				setCurrentIndex={setCurrentIndex}
 				setPointsEarned={setPointsEarned}
-				// pointsEarned={pointsEarned}
+				totalQuestions={totalQuestions}
+				currentIndex={currentIndex}
 			/>
 		</Stack>
 	);
