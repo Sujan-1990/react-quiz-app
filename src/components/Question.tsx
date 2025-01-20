@@ -8,14 +8,22 @@ export default function Question({
 	setPointsEarned,
 	totalQuestions,
 	currentIndex,
+	setResult,
+	setHighScore,
+	highScore,
+	pointsEarned,
 }: {
 	currentQuestion: IQuestion;
 	setCurrentIndex: React.Dispatch<React.SetStateAction<number>>;
 	setPointsEarned: React.Dispatch<React.SetStateAction<number>>;
 	totalQuestions: number;
 	currentIndex: number;
+	setResult: React.Dispatch<React.SetStateAction<boolean>>;
+	setHighScore: React.Dispatch<React.SetStateAction<number>>;
+	highScore: number;
+	pointsEarned: number;
 }) {
-	const [restart, setRestart] = useState(false);
+	const [showResult, setShowResult] = useState(false);
 	const [hasAnswered, setHasAnswered] = useState(false);
 	const [selectedOption, setSelectedOption] = useState<number | null>();
 
@@ -26,11 +34,8 @@ export default function Question({
 		isCorrectAnswer &&
 			setPointsEarned((pointsEarned) => pointsEarned + currentQuestion.points);
 
-		console.log("currentIndex=" + currentIndex);
-		console.log("totalQuestions=" + totalQuestions);
-
 		if (currentIndex + 1 == totalQuestions) {
-			setRestart(true);
+			setShowResult(true);
 		}
 	}
 
@@ -40,8 +45,12 @@ export default function Question({
 		setSelectedOption(null);
 	}
 
-	function handleRestartQuiz() {
-		console.log("restart");
+	function handleResult() {
+		setResult(true);
+		setHighScore(pointsEarned);
+		if (pointsEarned > highScore) {
+			setHighScore(pointsEarned);
+		} else setHighScore(highScore);
 	}
 
 	return (
@@ -67,7 +76,7 @@ export default function Question({
 				))}
 			</Stack>
 
-			{!restart ? (
+			{!showResult ? (
 				<Button
 					variant="outlined"
 					color="success"
@@ -77,8 +86,8 @@ export default function Question({
 					Next
 				</Button>
 			) : (
-				<Button variant="contained" color="warning" onClick={handleRestartQuiz}>
-					Restart
+				<Button variant="contained" color="info" onClick={handleResult}>
+					Get My Result
 				</Button>
 			)}
 		</Stack>

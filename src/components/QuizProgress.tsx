@@ -11,10 +11,11 @@ export default function QuizProgress({
 	totalPoints: number;
 	pointsEarned: number;
 }) {
+	const progressBarValue = +((currentIndex + 1) / totalQuestions) * 100;
+
 	return (
 		<Stack width={500}>
-			{/* <LinearProgressBar progre/> */}
-			{/* <LinearProgress variant="buffer" value={currentIndex} /> */}
+			<LinearProgress variant="determinate" value={progressBarValue} />
 
 			<Stack direction="row" justifyContent="space-between">
 				<Typography>
