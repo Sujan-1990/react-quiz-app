@@ -14,7 +14,7 @@ export default function QuizProgress({
 	const progressBarValue = +((currentIndex + 1) / totalQuestions) * 100;
 
 	return (
-		<Stack width={500}>
+		<Stack spacing={2}>
 			<LinearProgress variant="determinate" value={progressBarValue} />
 
 			<Stack direction="row" justifyContent="space-between">

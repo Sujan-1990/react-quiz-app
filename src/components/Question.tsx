@@ -51,8 +51,8 @@ export default function Question({
 	}
 
 	return (
-		<Stack spacing={4}>
-			<Typography>{currentQuestion.question}</Typography>
+		<Stack spacing={4} width="550px">
+			<Typography variant="h6">{currentQuestion.question}</Typography>
 			<Stack spacing={1}>
 				{currentQuestion.options.map((option: string, i: number) => (
 					<Box
@@ -60,11 +60,15 @@ export default function Question({
 						sx={{
 							cursor: !hasAnswered ? "pointer" : "default",
 							border: "1px solid skyblue",
-							borderRadius: 1,
+							borderRadius: 50,
 							backgroundColor: hasAnswered
 								? `${currentQuestion.correctOption === i ? "green" : "red"}`
 								: "",
 							ml: i === selectedOption ? "100px !important" : "",
+							height: 50,
+							display: "flex",
+							alignItems: "center",
+							justifyContent: "center",
 						}}
 						onClick={() => (!hasAnswered ? handleAnswer(i) : null)}
 					>
@@ -75,7 +79,7 @@ export default function Question({
 
 			{!showResult ? (
 				<Button
-					variant="outlined"
+					variant={!hasAnswered ? "contained" : "outlined"}
 					color="success"
 					onClick={handleNextQuestion}
 					disabled={!hasAnswered}
