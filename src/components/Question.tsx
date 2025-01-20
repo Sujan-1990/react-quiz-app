@@ -47,10 +47,7 @@ export default function Question({
 
 	function handleResult() {
 		setResult(true);
-		setHighScore(pointsEarned);
-		if (pointsEarned > highScore) {
-			setHighScore(pointsEarned);
-		} else setHighScore(highScore);
+		pointsEarned > highScore && setHighScore(pointsEarned);
 	}
 
 	return (
