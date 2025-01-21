@@ -3,6 +3,9 @@ import { useEffect, useState } from "react";
 import { IQuestion } from "./interface/question";
 import Welcome from "./components/Welcome";
 import Quiz from "./components/Quiz";
+import QuizProgress from "./components/QuizProgress";
+import Question from "./components/Question";
+import Result from "./components/Result";
 
 function App() {
 	useEffect(() => {
@@ -23,14 +26,15 @@ function App() {
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const [pointsEarned, setPointsEarned] = useState(0);
 	const [highScore, setHighScore] = useState(0);
+	const [result, setResult] = useState(false);
+
+	const currentQuestion = questions?.[currentIndex];
+	const totalQuestions = questions?.length ?? 0;
 
 	let totalPoints = 0;
 	questions?.map((x) => {
 		totalPoints += x.points;
 	});
-
-	const totalQuestions = questions?.length ?? 0;
-	const currentQuestion = questions?.[currentIndex];
 
 	if (questions?.length === 0) return null;
 
@@ -39,18 +43,38 @@ function App() {
 			{!startQuiz ? (
 				<Welcome totalQuestions={totalQuestions!} setStartQuiz={setStartQuiz} />
 			) : (
-				<Quiz
-					setCurrentIndex={setCurrentIndex}
-					currentIndex={currentIndex}
-					totalQuestions={totalQuestions}
-					totalPoints={totalPoints}
-					pointsEarned={pointsEarned}
-					setPointsEarned={setPointsEarned}
-					currentQuestion={currentQuestion!}
-					setStartQuiz={setStartQuiz}
-					highScore={highScore}
-					setHighScore={setHighScore}
-				/>
+				<Quiz>
+					{!result ? (
+						<>
+							<QuizProgress
+								currentIndex={currentIndex}
+								totalQuestions={totalQuestions}
+								totalPoints={totalPoints}
+								pointsEarned={pointsEarned}
+							/>
+							<Question
+								setResult={setResult}
+								currentQuestion={currentQuestion!}
+								setCurrentIndex={setCurrentIndex}
+								setPointsEarned={setPointsEarned}
+								totalQuestions={totalQuestions}
+								currentIndex={currentIndex}
+								setHighScore={setHighScore}
+								pointsEarned={pointsEarned}
+								highScore={highScore}
+							/>
+						</>
+					) : (
+						<Result
+							pointsEarned={pointsEarned}
+							highScore={highScore}
+							setResult={setResult}
+							setStartQuiz={setStartQuiz}
+							setCurrentIndex={setCurrentIndex}
+							setPointsEarned={setPointsEarned}
+						/>
+					)}
+				</Quiz>
 			)}
 		</>
 	);

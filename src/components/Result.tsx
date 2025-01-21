@@ -6,17 +6,20 @@ export default function Result({
 	setStartQuiz,
 	setCurrentIndex,
 	setPointsEarned,
+	setResult,
 }: {
 	pointsEarned: number;
 	highScore: number;
 	setStartQuiz: React.Dispatch<React.SetStateAction<boolean>>;
 	setCurrentIndex: React.Dispatch<React.SetStateAction<number>>;
 	setPointsEarned: React.Dispatch<React.SetStateAction<number>>;
+	setResult: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
 	const handleResetQuiz = () => {
 		setStartQuiz(false);
 		setCurrentIndex(0);
 		setPointsEarned(0);
+		setResult(false);
 	};
 	return (
 		<Stack spacing={2}>
