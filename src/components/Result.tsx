@@ -1,20 +1,16 @@
 import { Button, Stack, Typography } from "@mui/material";
+import { useQuiz } from "./QuizContext";
 
-export default function Result({
-	pointsEarned,
-	highScore,
-	setStartQuiz,
-	setCurrentIndex,
-	setPointsEarned,
-	setResult,
-}: {
-	pointsEarned: number;
-	highScore: number;
-	setStartQuiz: React.Dispatch<React.SetStateAction<boolean>>;
-	setCurrentIndex: React.Dispatch<React.SetStateAction<number>>;
-	setPointsEarned: React.Dispatch<React.SetStateAction<number>>;
-	setResult: React.Dispatch<React.SetStateAction<boolean>>;
-}) {
+export default function Result() {
+	const {
+		pointsEarned,
+		highScore,
+		setStartQuiz,
+		setCurrentIndex,
+		setPointsEarned,
+		setResult,
+	} = useQuiz();
+
 	const handleResetQuiz = () => {
 		setStartQuiz(false);
 		setCurrentIndex(0);

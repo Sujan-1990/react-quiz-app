@@ -1,16 +1,9 @@
 import { Stack, Typography, LinearProgress } from "@mui/material";
+import { useQuiz } from "./QuizContext";
 
-export default function QuizProgress({
-	currentIndex,
-	totalQuestions,
-	totalPoints,
-	pointsEarned,
-}: {
-	currentIndex: number;
-	totalQuestions: number;
-	totalPoints: number;
-	pointsEarned: number;
-}) {
+export default function QuizProgress() {
+	const { currentIndex, totalQuestions, totalPoints, pointsEarned } = useQuiz();
+
 	const progressBarValue = +((currentIndex + 1) / totalQuestions) * 100;
 
 	return (

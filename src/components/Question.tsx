@@ -1,28 +1,20 @@
 import { Box, Button, Stack, Typography } from "@mui/material";
-import { IQuestion } from "../interface/question";
 import { useState } from "react";
+import { useQuiz } from "./QuizContext";
 
-export default function Question({
-	currentQuestion,
-	setCurrentIndex,
-	setPointsEarned,
-	totalQuestions,
-	currentIndex,
-	setResult,
-	setHighScore,
-	highScore,
-	pointsEarned,
-}: {
-	currentQuestion: IQuestion;
-	setCurrentIndex: React.Dispatch<React.SetStateAction<number>>;
-	setPointsEarned: React.Dispatch<React.SetStateAction<number>>;
-	totalQuestions: number;
-	currentIndex: number;
-	setResult: React.Dispatch<React.SetStateAction<boolean>>;
-	setHighScore: React.Dispatch<React.SetStateAction<number>>;
-	highScore: number;
-	pointsEarned: number;
-}) {
+export default function Question() {
+	const {
+		currentQuestion,
+		currentIndex,
+		totalQuestions,
+		pointsEarned,
+		highScore,
+		setPointsEarned,
+		setCurrentIndex,
+		setResult,
+		setHighScore,
+	} = useQuiz();
+
 	const [showResult, setShowResult] = useState(false);
 	const [hasAnswered, setHasAnswered] = useState(false);
 	const [selectedOption, setSelectedOption] = useState<number | null>();
@@ -32,7 +24,9 @@ export default function Question({
 		setSelectedOption(i);
 		const isCorrectAnswer = i === currentQuestion.correctOption;
 		isCorrectAnswer &&
-			setPointsEarned((pointsEarned) => pointsEarned + currentQuestion.points);
+			setPointsEarned(
+				(pointsEarned: any) => pointsEarned + currentQuestion.points
+			);
 
 		if (currentIndex + 1 == totalQuestions) {
 			setShowResult(true);
@@ -40,7 +34,7 @@ export default function Question({
 	}
 
 	function handleNextQuestion() {
-		setCurrentIndex((x) => x + 1);
+		setCurrentIndex((x: any) => x + 1);
 		setHasAnswered(false);
 		setSelectedOption(null);
 	}

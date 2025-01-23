@@ -1,12 +1,9 @@
 import { Button, Stack, Typography } from "@mui/material";
+import { useQuiz } from "./QuizContext";
 
-export default function Welcome({
-	totalQuestions,
-	setStartQuiz,
-}: {
-	totalQuestions: number;
-	setStartQuiz: React.Dispatch<React.SetStateAction<boolean>>;
-}) {
+export default function Welcome() {
+	const { setStartQuiz, totalQuestions } = useQuiz();
+
 	return (
 		<Stack spacing={5}>
 			<Typography variant="h3">Welcome</Typography>
